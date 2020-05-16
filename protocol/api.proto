@@ -6,7 +6,7 @@ option go_package = "pb";
 
 service EchoSVC {
   rpc Echo(Request) returns (Response);
-  rpc EchoAuth(Request) returns (Response);
+  rpc EchoAuthSkip(Request) returns (Response);
 }
 
 message Request {

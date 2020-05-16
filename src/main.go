@@ -23,6 +23,15 @@ type server struct{}
 
 // AuthFuncOverride is to handle authentication
 func (s *server) AuthFuncOverride(ctx context.Context, fullMethodName string) (context.Context, error) {
+	if fullMethodName == "/pb.EchoSVC/EchoAuthSkip" {
+		return ctx, nil
+	}
+
+	ctx, err := authenticate(ctx)
+	if err != nil {
+		return ctx, err
+	}
+
 	return ctx, nil
 }
 
@@ -32,7 +41,7 @@ func (s *server) Echo(ctx context.Context, req *pb.Request) (*pb.Response, error
 }
 
 // Echo is endpoint to demo
-func (s *server) EchoAuth(ctx context.Context, req *pb.Request) (*pb.Response, error) {
+func (s *server) EchoAuthSkip(ctx context.Context, req *pb.Request) (*pb.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EchoAuth not implemented")
 }
 
